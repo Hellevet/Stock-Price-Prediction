@@ -11,6 +11,17 @@ from datetime import date
 today = date.today()
 data = yf.download('AAPL', start='2020-01-01', end=today.strftime("%Y-%m-%d"))
 
+#structuring the data for analysis and display graph using numpy and pandas
+data = data.reset_index()
+data['Date'] = pd.to_datetime(data['Date'])
+data['Date'] = data['Date'].dt.strftime('%m/%d/%Y')
+data = data.set_index('Date')
+
+
+# Print the data
+print(data)
+
+
 # Print today's closing price
 print(f'Today\'s Closing Price: {data.iloc[-1:]["Close"][0]}')
 
